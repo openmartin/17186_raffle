@@ -3,12 +3,25 @@ import requests
 import yaml
 import json
 import time
+import logging
 
 LOGIN_URL = 'http://17186.cn/n/login.jsp'
 LOGIN_ACTION = 'http://17186.cn/ajax/account/staticLoginNew.action'
 RAFFLE_ACTION = 'http://17186.cn/ajax/lottery/shakePrize.action'
 CHECK_ACTION = 'http://17186.cn/ajax/operation/userCheckIn.action'
 YAML_CONF = 'raffle.yaml'
+
+LOG_FILE = 'raffle.log'
+
+handler = logging.handlers.RotatingFileHandler(LOG_FILE, maxBytes=1024*1024, backupCount=5)  # 实例化handler
+fmt = '%(asctime)s - %(filename)s:%(lineno)s - %(name)s - %(message)s'
+
+formatter = logging.Formatter(fmt)   # 实例化formatter
+handler.setFormatter(formatter)      # 为handler添加formatter
+
+logger = logging.getLogger('raffle')    # 获取名为tst的logger
+logger.addHandler(handler)           # 为logger添加handler
+logger.setLevel(logging.DEBUG)
 
 class HttpRaffle:
 
@@ -32,17 +45,17 @@ class HttpRaffle:
         resp = json.loads(resp)
         print resp
         if resp.get('resultCode') == 'ok':
-            print 'login success'
+            logger.info('login success')
             self.is_login = True
         else:
-            print 'login failed'
+            logger.info('login failed')
             self.is_login = False
 
     def raffle(self):
         if self.is_login:
             r = self.session.post(RAFFLE_ACTION)
             resp = json.loads(r.text)
-            print resp
+            logger.info(resp)
             resp = json.loads(resp)
             code = resp.get('code')
             if code == '0000':
@@ -57,7 +70,7 @@ class HttpRaffle:
     def check(self):
         if self.is_login:
             r = self.session.post(CHECK_ACTION)
-            print r.text
+            logger.info(r.text)
         else:
             pass
 
