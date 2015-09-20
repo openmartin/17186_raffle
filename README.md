@@ -15,6 +15,7 @@
 下载代码
 
     git clone https://github.com/openmartin/17186_raffle.git
+    pip install -r 17186_raffle/requirements.txt
     
 修改配置
     
