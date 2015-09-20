@@ -4,6 +4,7 @@ import yaml
 import json
 import time
 import logging
+import logging.handlers
 
 LOGIN_URL = 'http://17186.cn/n/login.jsp'
 LOGIN_ACTION = 'http://17186.cn/ajax/account/staticLoginNew.action'
