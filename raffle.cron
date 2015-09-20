@@ -1,0 +1,1 @@
+0 20 * * * /home/ec2-user/raffle/17186_raffle/daily_run.sh
