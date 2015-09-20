@@ -38,3 +38,6 @@
     crontab raffle.cron
     注意:会直接替换掉你的cron配置，如果你的cron里面有配置的话，别使用这种方式。
 
+查看日志
+    
+    在运行的目录之下有 raffle.log

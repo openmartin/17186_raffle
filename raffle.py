@@ -24,6 +24,7 @@ logger = logging.getLogger('raffle')    # 获取名为tst的logger
 logger.addHandler(handler)           # 为logger添加handler
 logger.setLevel(logging.DEBUG)
 
+
 class HttpRaffle:
 
     def __init__(self):
@@ -43,8 +44,8 @@ class HttpRaffle:
         r = self.session.post(LOGIN_ACTION, data=login_params)
         resp_callback = r.text
         resp = json.loads(resp_callback)
+        logger.info(resp)
         resp = json.loads(resp)
-        print resp
         if resp.get('resultCode') == 'ok':
             logger.info('login success')
             self.is_login = True
