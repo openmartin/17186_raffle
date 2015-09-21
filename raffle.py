@@ -80,7 +80,9 @@ class HttpRaffle:
 if __name__ == '__main__':
     http_bot = HttpRaffle()
     http_bot.login()
+    time.sleep(3)
     http_bot.check()
+    time.sleep(3)
     for i in range(9):
         time.sleep(5)
         http_bot.raffle()
