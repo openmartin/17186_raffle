@@ -82,4 +82,5 @@ if __name__ == '__main__':
     http_bot.login()
     http_bot.check()
     for i in range(9):
+        time.sleep(5)
         http_bot.raffle()
