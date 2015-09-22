@@ -37,8 +37,7 @@ class HttpRaffle:
 
     def login(self):
         r = self.session.get(LOGIN_URL)
-        jsoncallback = 'jQuery17105120323419105262_' + str(int(time.time()*1000))
-        login_params = {'jsoncallback': jsoncallback, 'userName': self.user, 'passWord': self.password}
+        login_params = {'userName': self.user, 'passWord': self.password}
         login_params['verifyCode'] = ''
         login_params['_'] = str(int(time.time()*1000))
         r = self.session.post(LOGIN_ACTION, data=login_params)
