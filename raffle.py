@@ -8,6 +8,7 @@ import logging.handlers
 
 LOGIN_URL = 'http://17186.cn/n/login.jsp'
 LOGIN_ACTION = 'http://17186.cn/ajax/account/staticLoginNew.action'
+RAFFLE_INDEX = 'http://17186.cn/component/huodong/playflow/index.jsp'
 RAFFLE_ACTION = 'http://17186.cn/ajax/lottery/shakePrize.action'
 CHECK_ACTION = 'http://17186.cn/ajax/operation/userCheckIn.action'
 YAML_CONF = 'raffle.yaml'
@@ -54,6 +55,7 @@ class HttpRaffle:
 
     def raffle(self):
         if self.is_login:
+            r = self.session.get(RAFFLE_INDEX)
             r = self.session.post(RAFFLE_ACTION)
             resp = json.loads(r.text)
             logger.info(resp)
