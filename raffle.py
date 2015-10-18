@@ -110,7 +110,7 @@ class HttpRaffle:
         if today.day == 8 or today.day == 18 or today.day == 28:
             r = self.session.get(MEMBER_PAGE)
             header = {'X-Requested-With': 'XMLHttpRequest'}
-            r = self.session.post(RED_ENVELOPE)
+            r = self.session.post(RED_ENVELOPE, header=header)
 
             logger.info('red envelop ' + r.text)
 
