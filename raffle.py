@@ -84,7 +84,7 @@ class HttpRaffle:
                 r = self.session.post(GIF_ADD_LOG_ACTION, data={'id': '93533'})
             r = self.session.post(GIF_ADDCHANCE_ACTION, data={'type': '13', 'resource_code': '93533'})
 
-            logger.info('gif view over 93533')
+            logger.info('gif view over 93533, add chance 2')
 
             # GIF 2
             r = self.session.get(GIF_INDEX_2)
@@ -92,7 +92,7 @@ class HttpRaffle:
                 r = self.session.post(GIF_ADD_LOG_ACTION, data={'id': '93580'})
             r = self.session.post(GIF_ADDCHANCE_ACTION, data={'type': '13', 'resource_code': '93580'})
 
-            logger.info('gif view over 93580')
+            logger.info('gif view over 93580, add chance 2')
 
     def check(self):
         if self.is_login:
@@ -107,6 +107,8 @@ if __name__ == '__main__':
     http_bot.login()
     time.sleep(3)
     http_bot.check()
+    time.sleep(3)
+    http_bot.gif_add_chance()
     time.sleep(3)
     for i in range(13):
         time.sleep(5)
