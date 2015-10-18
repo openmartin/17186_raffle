@@ -3,6 +3,7 @@ import requests
 import yaml
 import json
 import time
+from datetime import date
 import logging
 import logging.handlers
 
@@ -16,6 +17,9 @@ GIF_INDEX_1 = 'http://17186.cn/component/huodong/playflow/gif.jsp?columnId=93533
 GIF_INDEX_2 = 'http://17186.cn/component/huodong/playflow/gif.jsp?columnId=93580'
 GIF_ADD_LOG_ACTION = 'http://17186.cn/ajax/operation/addGifLog.action'
 GIF_ADDCHANCE_ACTION = 'http://17186.cn/ajax/operation/addChance.action'
+
+MEMBER_PAGE = 'http://17186.cn/component/member/index.jsp'
+RED_ENVELOPE = 'http://17186.cn/ajax/member/memGR.action'
 
 YAML_CONF = 'raffle.yaml'
 
@@ -101,6 +105,16 @@ class HttpRaffle:
         else:
             pass
 
+    def red_envelope(self):
+        today = date.today()
+        if today.day == 8 or today.day == 18 or today.day == 28:
+            r = self.session.get(MEMBER_PAGE)
+            r = self.session.post(RED_ENVELOPE)
+
+            logger.info('red envelop ' + r.text)
+
+
+
 
 if __name__ == '__main__':
     http_bot = HttpRaffle()
@@ -109,6 +123,8 @@ if __name__ == '__main__':
     http_bot.check()
     time.sleep(3)
     http_bot.gif_add_chance()
+    time.sleep(3)
+    http_bot.red_envelope()
     time.sleep(3)
     for i in range(13):
         time.sleep(5)
