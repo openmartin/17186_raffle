@@ -11,6 +11,12 @@ LOGIN_ACTION = 'http://17186.cn/ajax/account/staticLoginNew.action'
 RAFFLE_INDEX = 'http://17186.cn/component/huodong/playflow/index.jsp'
 RAFFLE_ACTION = 'http://17186.cn/ajax/lottery/shakePrize.action'
 CHECK_ACTION = 'http://17186.cn/ajax/operation/userCheckIn.action'
+
+GIF_INDEX_1 = 'http://17186.cn/component/huodong/playflow/gif.jsp?columnId=93533'
+GIF_INDEX_2 = 'http://17186.cn/component/huodong/playflow/gif.jsp?columnId=93580'
+GIF_ADD_LOG_ACTION = 'http://17186.cn/ajax/operation/addGifLog.action'
+GIF_ADDCHANCE_ACTION = 'http://17186.cn/ajax/operation/addChance.action'
+
 YAML_CONF = 'raffle.yaml'
 
 LOG_FILE = 'raffle.log'
@@ -70,6 +76,24 @@ class HttpRaffle:
         else:
             pass
 
+    def gif_add_chance(self):
+        if self.is_login:
+            # GIF 1
+            r = self.session.get(GIF_INDEX_1)
+            for i in range(4):
+                r = self.session.post(GIF_ADD_LOG_ACTION, data={'id': '93533'})
+            r = self.session.post(GIF_ADDCHANCE_ACTION, data={'type': '13', 'resource_code': '93533'})
+
+            logger.info('gif view over 93533')
+
+            # GIF 2
+            r = self.session.get(GIF_INDEX_2)
+            for i in range(4):
+                r = self.session.post(GIF_ADD_LOG_ACTION, data={'id': '93580'})
+            r = self.session.post(GIF_ADDCHANCE_ACTION, data={'type': '13', 'resource_code': '93580'})
+
+            logger.info('gif view over 93580')
+
     def check(self):
         if self.is_login:
             r = self.session.post(CHECK_ACTION)
@@ -84,6 +108,6 @@ if __name__ == '__main__':
     time.sleep(3)
     http_bot.check()
     time.sleep(3)
-    for i in range(9):
+    for i in range(13):
         time.sleep(5)
         http_bot.raffle()
